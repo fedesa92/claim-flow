@@ -52,7 +52,7 @@ The PWA calls the API at `http://localhost:8080/api`. If the API is unavailable,
 - **MongoDB:** a claim is naturally represented as a document aggregate with nested sections and an evolving schema.
 - **Local fallback:** a deliberate demo-product decision, isolated inside the frontend API adapter and separate from the real backend path.
 
-See the [architecture notes](docs/architecture.md) and [demo script](docs/demo-script.md).
+See the [architecture notes](documentation/architecture.md) and [demo script](documentation/demo-script.md).
 
 ## Project structure
 
@@ -61,7 +61,7 @@ claimflow/
 |-- backend/              Kotlin + Quarkus
 |-- frontend/             React + TypeScript + Vite PWA
 |-- infra/k8s/            Demonstration Kubernetes manifests
-|-- docs/                 Architecture and presentation material
+|-- documentation/        Architecture and presentation material
 `-- docker-compose.yml    Reproducible local stack
 ```
 

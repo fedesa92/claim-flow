@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: claimflow-api }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: claimflow-api } }
+  template:
+    metadata: { labels: { app: claimflow-api } }
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/example/claimflow-api:latest
+          ports: [{ containerPort: 8080 }]
+          env:
+            - name: MONGODB_URI
+              valueFrom: { secretKeyRef: { name: claimflow-secrets, key: mongodb-uri } }
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom: { configMapKeyRef: { name: claimflow-config, key: kafka-bootstrap-servers } }
+          readinessProbe: { httpGet: { path: /api/health, port: 8080 }, initialDelaySeconds: 5 }
+          livenessProbe: { httpGet: { path: /api/health, port: 8080 }, initialDelaySeconds: 20 }
+          resources:
+            requests: { cpu: 100m, memory: 192Mi }
+            limits: { cpu: 500m, memory: 512Mi }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: claimflow-api }
+spec:
+  selector: { app: claimflow-api }
+  ports: [{ port: 80, targetPort: 8080 }]
