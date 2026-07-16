@@ -38,8 +38,8 @@ On the home screen, select **Precompila demo** to complete the full flow in unde
 
 ```bash
 cd frontend
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 The PWA calls the API at `http://localhost:8080/api`. If the API is unavailable, it transparently switches to a `localStorage` adapter, keeping a statically deployed demo fully interactive.
